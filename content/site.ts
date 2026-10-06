@@ -200,8 +200,9 @@ export const site = {
   title: "HELLION",
   location: "Amsterdam",
   description:
-    "HELLION — the creative world of Storm Nijhuis. Purity, desire, skin and transformation.",
+    "Storm Nijhuis — the designer behind HELLION. A fashion portfolio of sculptural silhouettes, editorial portraits and garment details.",
   navigation: [
+    { label: "Home", href: "/" },
     { label: "Hellion", href: "/hellion" },
     { label: "Archive", href: "/archive" },
     { label: "About", href: "/about" },

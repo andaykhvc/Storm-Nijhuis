@@ -217,3 +217,22 @@ test("unknown route returns a useful 404", async ({ page }) => {
     page.getByRole("link", { name: "Return to Hellion" }),
   ).toBeVisible();
 });
+
+test("designer name and section index lead directly to the work and approach", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Storm Nijhuis" }),
+  ).toBeVisible();
+  const index = page.getByRole("navigation", { name: "On this page" });
+  await index.getByRole("link", { name: /Approach/ }).click();
+  await expect(page).toHaveURL(/#approach$/);
+  await expect(
+    page.getByRole("heading", { name: /The body sets/ }),
+  ).toBeInViewport();
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await index.getByRole("link", { name: /Selected work/ }).click();
+  await expect(page).toHaveURL(/#selected-work$/);
+  await expect(page.locator(".hero-statement h2")).toBeInViewport();
+});

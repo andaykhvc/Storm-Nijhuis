@@ -4,17 +4,17 @@ import { MediaImage } from "@/components/media-image";
 export const metadata: Metadata = {
   title: "About & Contact",
   description:
-    "Storm Nijhuis / HELLION. Amsterdam. A creative world exploring skin, purity, desire and transformation.",
+    "Storm Nijhuis, the designer behind HELLION. Explore the work and get in touch through Instagram.",
 };
 export default function About() {
   return (
     <main id="main" className="about-page">
       <div className="page-intro">
-        <span className="eyebrow">Behind HELLION</span>
-        <h1>
+        <span className="eyebrow">About / The designer</span>
+        <h1 className="gothic-title">
           Storm
           <br />
-          <em>Nijhuis.</em>
+          Nijhuis.
         </h1>
         <p>
           Independent fashion.
@@ -30,21 +30,21 @@ export default function About() {
           </span>
         </div>
         <div>
-          <span className="eyebrow">The creative world</span>
+          <span className="eyebrow">Storm Nijhuis / HELLION</span>
           <h2>
-            Body.
+            The work,
             <br />
-            Material.
-            <br />
-            <em>Becoming.</em>
+            in context.
           </h2>
           {site.biography.length ? (
             site.biography.map((text) => <p key={text}>{text}</p>)
           ) : (
             <p>
-              HELLION explores the space between purity and sin, skin and
-              shedding, temptation and desire. Reptilian forms become a language
-              of layers, surface tension and transformation.
+              HELLION is the fashion work of Storm Nijhuis, based in Amsterdam.
+              This portfolio brings together full silhouettes, editorial
+              portraits and close details. Layered forms, contrasting stripes
+              and extended profiles show how clothing can alter the outline of
+              the body.
             </p>
           )}
         </div>
@@ -71,7 +71,7 @@ export default function About() {
         <h2>
           Get in
           <br />
-          <em>touch.</em>
+          touch.
         </h2>
         {site.contactEmail ? (
           <a className="contact-email" href={`mailto:${site.contactEmail}`}>

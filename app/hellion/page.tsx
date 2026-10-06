@@ -7,71 +7,74 @@ import { site, getMedia } from "@/content/site";
 export const metadata: Metadata = {
   title: "Hellion",
   description:
-    "Explore the creative world of HELLION: skin, surface, purity and transformation.",
+    "HELLION by Storm Nijhuis. Explore silhouettes, sculptural forms and garment details through a photographic study.",
 };
 export default function Hellion() {
   return (
     <main id="main" className="collection-page">
       <div className="page-intro">
-        <span className="eyebrow">The creative world / HELLION</span>
-        <h1>
-          Original
-          <br />
-          <em>sin.</em>
-        </h1>
+        <span className="eyebrow">Selected work / Storm Nijhuis</span>
+        <h1 className="gothic-title">HELLION</h1>
         <p>
-          Purity and desire.
-          <br />A tension held at the surface.
+          Clothing as a frame for the body.
+          <br />A photographic study of form and transformation.
         </p>
       </div>
-      <div className="collection-surface">
+      <section className="collection-surface" aria-labelledby="surface-title">
         <div>
-          <span className="eyebrow">01 / Skin</span>
-          <h2>
-            A layer
+          <span className="eyebrow">01 / The photographic study</span>
+          <h2 id="surface-title">
+            Sixteen
             <br />
-            between
+            points of
             <br />
-            <em>worlds.</em>
+            view.
           </h2>
-          <p>Scroll to reveal what lies beneath.</p>
+          <p>
+            Follow the same forms from portrait to full silhouette. Each
+            photograph reveals a different relationship between the body and its
+            outer layer.
+          </p>
           <span className="content-note">
-            Skin, surface and transformation.
+            Scroll down to reveal the next image.
             <br />
-            Selected HELLION imagery.
+            Scroll up to return to the previous one.
           </span>
         </div>
         <Shedding items={site.scrollSequence.map(getMedia)} />
-      </div>
-      <div className="collection-quote">
-        <span className="eyebrow">02 / Transformation</span>
-        <h2>
-          What we shed
+      </section>
+      <section className="collection-quote" aria-labelledby="form-title">
+        <span className="eyebrow">02 / Silhouette</span>
+        <h2 id="form-title">
+          A form changes
           <br />
-          is also what
+          with its
           <br />
-          we <em>become.</em>
+          point of view.
         </h2>
-      </div>
+        <p>
+          Front, side and back views show how volume moves around the body. The
+          sequence below brings these perspectives together.
+        </p>
+      </section>
       <Lookbook items={site.lookbook.map(getMedia)} />
-      <section className="material-section">
+      <section className="material-section" aria-labelledby="material-title">
         <div>
-          <span className="eyebrow">03 / Surface tension</span>
-          <h2>
-            Closer
+          <span className="eyebrow">03 / Surface</span>
+          <h2 id="material-title">
+            Texture
             <br />
-            to the <em>skin.</em>
+            in focus.
           </h2>
           <p>
-            A visual language of layers, tension
-            <br />
-            and organic deformation.
+            Close views show what a full silhouette can hide: a laced opening, a
+            folded edge or a surface catching the light.
           </p>
         </div>
         <MediaImage item={getMedia(site.home.material)} />
       </section>
       <div className="next-page">
-        <span className="eyebrow">Continue exploring</span>
+        <span className="eyebrow">Every photograph, at your own pace</span>
         <Link href="/archive">
           The archive <span>↗</span>
         </Link>
