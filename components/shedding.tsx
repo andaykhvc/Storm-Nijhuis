@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { MediaImage } from "@/components/media-image";
 import type { Media } from "@/content/site";
@@ -12,10 +12,19 @@ const initialSurface = {
   "--fold-c": "0%",
   "--fold-d": "0%",
   "--seam-opacity": "0",
+  "--outer-opacity": "1",
 } as CSSProperties;
 
-function paintSurface(image: HTMLDivElement, progress: number) {
-  const fold = Math.sin(progress * Math.PI);
+function paintSurface(
+  image: HTMLDivElement,
+  progress: number,
+  reduced: boolean,
+) {
+  const fold = reduced ? 0 : Math.sin(progress * Math.PI);
+  image.style.setProperty(
+    "--outer-opacity",
+    reduced && progress >= 0.5 ? "0" : "1",
+  );
   image.style.setProperty("--shed", `${progress * 100}%`);
   image.style.setProperty("--fold-a", `${fold * 2.5}%`);
   image.style.setProperty("--fold-b", `${fold * 1.5}%`);
@@ -30,31 +39,26 @@ function paintSurface(image: HTMLDivElement, progress: number) {
 
 export function Shedding({
   items,
-  priority = true,
+  priority = false,
+  sizes = "(max-width: 700px) 100vw, 55vw",
 }: {
-  items: Media[];
+  items: readonly [Media, Media];
   priority?: boolean;
+  sizes?: string;
 }) {
-  const [index, setIndex] = useState(0);
   const [labelIndex, setLabelIndex] = useState(0);
   const wrapper = useRef<HTMLDivElement>(null);
   const sticky = useRef<HTMLDivElement>(null);
   const surface = useRef<HTMLDivElement>(null);
   const runway = useRef<HTMLDivElement>(null);
-  const position = useRef({ index: 0, label: 0, progress: 0 });
-
-  // Apply the mask after a pair changes so the previous photograph cannot flash back.
-  useLayoutEffect(() => {
-    if (surface.current)
-      paintSurface(surface.current, position.current.progress);
-  }, [index]);
+  const label = useRef(0);
 
   useEffect(() => {
     const container = wrapper.current;
     const panel = sticky.current;
     const image = surface.current;
     const distance = runway.current;
-    if (!container || !panel || !image || !distance || items.length < 2) return;
+    if (!container || !panel || !image || !distance) return;
 
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let dispose = () => {};
@@ -75,25 +79,12 @@ export function Shedding({
           0,
           Math.min(1, (top - container!.getBoundingClientRect().top) / travel),
         );
-        const sequence = progress * (items.length - 1);
-        const nextIndex = Math.min(
-          Math.floor(sequence),
-          items.length - (reduced ? 1 : 2),
-        );
-        const amount = reduced ? 0 : sequence - nextIndex;
-        const changed = nextIndex !== position.current.index;
-        const nextLabel = Math.min(
-          items.length - 1,
-          Math.floor(sequence + (reduced ? 0 : 0.5)),
-        );
-        if (nextLabel !== position.current.label) setLabelIndex(nextLabel);
-        position.current = {
-          index: nextIndex,
-          label: nextLabel,
-          progress: amount,
-        };
-        if (changed) setIndex(nextIndex);
-        else paintSurface(image!, amount);
+        const nextLabel = progress >= 0.5 ? 1 : 0;
+        if (nextLabel !== label.current) {
+          label.current = nextLabel;
+          setLabelIndex(nextLabel);
+        }
+        paintSurface(image!, progress, reduced);
       }
 
       function schedule() {
@@ -144,54 +135,34 @@ export function Shedding({
     };
   }, [items]);
 
-  if (!items.length) return null;
-  const outer = items[index];
-  const inner = items[Math.min(index + 1, items.length - 1)];
-  const upcoming = items[index + 2];
+  const [outer, inner] = items;
 
   return (
-    <div
-      ref={wrapper}
-      className="shedding-wrap"
-      style={{ "--sequence-steps": items.length - 1 } as CSSProperties}
-    >
+    <div ref={wrapper} className="shedding-wrap">
       <div ref={sticky} className="shed-sticky">
         <div ref={surface} className="shedding" style={initialSurface}>
           <div className="shed-under">
             <MediaImage
               item={inner}
               fit={inner.role === "full-look" ? "contain" : "cover"}
-              eager
-              sizes="(max-width: 700px) 100vw, 55vw"
+              eager={priority}
+              sizes={sizes}
             />
           </div>
           <div className="shed-over">
             <MediaImage
               item={outer}
               fit={outer.role === "full-look" ? "contain" : "cover"}
-              eager
-              priority={priority && index === 0}
-              sizes="(max-width: 700px) 100vw, 55vw"
+              priority={priority}
+              sizes={sizes}
             />
           </div>
           <span className="shed-seam" aria-hidden="true" />
           <div className="surface-label">
-            <span>
-              {String(labelIndex + 1).padStart(2, "0")} /{" "}
-              {String(items.length).padStart(2, "0")}
-            </span>
+            <span>{String(labelIndex + 1).padStart(2, "0")} / 02</span>
             <span>{items[labelIndex].title}</span>
           </div>
         </div>
-        {upcoming ? (
-          <div className="shed-buffer" aria-hidden="true">
-            <MediaImage
-              item={upcoming}
-              eager
-              sizes="(max-width: 700px) 100vw, 55vw"
-            />
-          </div>
-        ) : null}
       </div>
       <div ref={runway} className="shed-runway" aria-hidden="true" />
     </div>

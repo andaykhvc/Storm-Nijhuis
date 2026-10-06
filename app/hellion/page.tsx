@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Shedding } from "@/components/shedding";
 import { Lookbook } from "@/components/lookbook";
-import { MediaImage } from "@/components/media-image";
-import { site, getMedia } from "@/content/site";
+import { site, getMediaPair } from "@/content/site";
 export const metadata: Metadata = {
   title: "Hellion",
   description:
@@ -24,16 +23,15 @@ export default function Hellion() {
         <div>
           <span className="eyebrow">01 / The photographic study</span>
           <h2 id="surface-title">
-            Sixteen
+            A portrait,
             <br />
-            points of
+            another
             <br />
             view.
           </h2>
           <p>
-            Follow the same forms from portrait to full silhouette. Each
-            photograph reveals a different relationship between the body and its
-            outer layer.
+            Two portraits of the same striped look. Raised sleeves frame the
+            face in one image; the second reveals the silhouette around it.
           </p>
           <span className="content-note">
             Scroll down to reveal the next image.
@@ -41,7 +39,7 @@ export default function Hellion() {
             Scroll up to return to the previous one.
           </span>
         </div>
-        <Shedding items={site.scrollSequence.map(getMedia)} />
+        <Shedding items={getMediaPair(site.photoPairs.hero)} priority />
       </section>
       <section className="collection-quote" aria-labelledby="form-title">
         <span className="eyebrow">02 / Silhouette</span>
@@ -53,11 +51,11 @@ export default function Hellion() {
           point of view.
         </h2>
         <p>
-          Front, side and back views show how volume moves around the body. The
-          sequence below brings these perspectives together.
+          Front and side views show how volume moves around the body. The pair
+          below brings these perspectives together.
         </p>
       </section>
-      <Lookbook items={site.lookbook.map(getMedia)} />
+      <Lookbook items={getMediaPair(site.photoPairs.silhouette)} />
       <section className="material-section" aria-labelledby="material-title">
         <div>
           <span className="eyebrow">03 / Surface</span>
@@ -71,7 +69,7 @@ export default function Hellion() {
             folded edge or a surface catching the light.
           </p>
         </div>
-        <MediaImage item={getMedia(site.home.material)} />
+        <Shedding items={getMediaPair(site.photoPairs.material)} />
       </section>
       <div className="next-page">
         <span className="eyebrow">Every photograph, at your own pace</span>

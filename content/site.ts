@@ -231,36 +231,23 @@ export const site = {
     isolated: "sculptural-front",
     material: "textured-portrait",
   },
-  scrollSequence: [
-    "veiled-eye",
-    "striped-portrait",
-    "stripe-detail",
-    "black-silhouette",
-    "veil-detail",
-    "black-profile",
-    "black-reverse",
-    "gloss-silhouette",
-    "sculptural-front",
-    "sculptural-profile",
-    "sculptural-reverse",
-    "paired-detail",
-    "paired-silhouettes",
-    "textured-silhouette",
-    "textured-portrait",
-    "textured-profile",
-  ],
-  lookbook: [
-    "black-silhouette",
-    "black-profile",
-    "black-reverse",
-    "sculptural-front",
-    "sculptural-profile",
-    "sculptural-reverse",
-    "textured-silhouette",
-  ],
+  // Each animated panel has only two related photographs.
+  photoPairs: {
+    hero: ["veiled-eye", "striped-portrait"],
+    detail: ["gloss-silhouette", "sculptural-reverse"],
+    isolated: ["sculptural-front", "sculptural-profile"],
+    silhouette: ["black-silhouette", "black-profile"],
+    material: ["textured-portrait", "textured-profile"],
+  } satisfies Record<string, readonly [string, string]>,
 };
 export function getMedia(id: string): Media {
   const item = media.find((entry) => entry.id === id);
   if (!item) throw new Error(`Unknown media assignment: ${id}`);
   return item;
+}
+
+export function getMediaPair(
+  ids: readonly [string, string],
+): readonly [Media, Media] {
+  return [getMedia(ids[0]), getMedia(ids[1])];
 }

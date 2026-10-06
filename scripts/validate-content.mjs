@@ -11,20 +11,11 @@ for (const item of media) {
     throw new Error(`Invalid local media source: ${item.src}`);
   await access(path.join(process.cwd(), "public", item.src));
 }
-for (const id of [
-  ...Object.values(site.home),
-  ...site.lookbook,
-  ...site.scrollSequence,
-])
-  getMedia(id);
-const sequenceIds = new Set(site.scrollSequence);
-if (
-  sequenceIds.size !== site.scrollSequence.length ||
-  media.some((item) => !sequenceIds.has(item.id))
-) {
-  throw new Error(
-    "The scroll sequence must include every supplied photograph exactly once",
-  );
+for (const id of Object.values(site.home)) getMedia(id);
+for (const [name, pair] of Object.entries(site.photoPairs)) {
+  if (pair.length !== 2 || pair[0] === pair[1])
+    throw new Error(`Photo pair ${name} must contain two distinct photographs`);
+  pair.forEach(getMedia);
 }
 for (const entry of [...site.socials, ...site.press]) {
   if (new URL(entry.href).protocol !== "https:")

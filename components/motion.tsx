@@ -9,8 +9,9 @@ export function Motion() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
+    // Photo panels keep stable coordinates for their scroll-scrubbed reveal.
     const sections = document.querySelectorAll(
-      ".manifesto, .details, .closing, .collection-quote, .material-section, .about-composition",
+      ".manifesto, .closing, .collection-quote, .about-composition",
     );
     const observer = new IntersectionObserver(
       (entries) => {
