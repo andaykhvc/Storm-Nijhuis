@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { site, getMedia } from "@/content/site";
+import { site, getMediaPair } from "@/content/site";
 import { Shedding } from "@/components/shedding";
-import { MediaImage } from "@/components/media-image";
 export default function Home() {
   return (
     <main id="main">
@@ -45,11 +44,11 @@ export default function Home() {
               Explore the work <span>↗</span>
             </Link>
             <span className="hero-side-note">
-              16 photographs / Scroll down to reveal the next. Scroll up to
+              Two related photographs / Scroll down to reveal. Scroll up to
               return.
             </span>
           </div>
-          <Shedding items={site.scrollSequence.map(getMedia)} />
+          <Shedding items={getMediaPair(site.photoPairs.hero)} priority />
         </div>
         <div className="hero-foot">
           <span>Storm Nijhuis / HELLION</span>
@@ -84,18 +83,18 @@ export default function Home() {
       </section>
       <section className="details" aria-labelledby="details-title">
         <div className="detail-large">
-          <MediaImage
-            item={getMedia(site.home.detail)}
+          <Shedding
+            items={getMediaPair(site.photoPairs.detail)}
             sizes="(max-width: 700px) 100vw, 60vw"
           />
           <span className="image-caption">
-            Gloss / 01 <span>Profile and structure</span>
+            Glossy forms <span>Profile / reverse view</span>
           </span>
         </div>
         <div className="detail-small">
           <span className="eyebrow">03 / Form & detail</span>
-          <MediaImage
-            item={getMedia(site.home.isolated)}
+          <Shedding
+            items={getMediaPair(site.photoPairs.isolated)}
             sizes="(max-width: 700px) 100vw, 30vw"
           />
           <h2 id="details-title">

@@ -20,8 +20,8 @@ npm start
 
 ## Experiences
 
-- `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Scroll down to shed the outer photograph and reveal the next image across all 16 supplied photographs; scroll back up to reverse the sequence. The image stays in view during the sequence. Only the active pair and the upcoming image are mounted. Reduced motion uses discrete image changes with no peeling or distortion.
-- `/hellion`: collection story and scroll-driven visual sequence.
+- `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Each of the three image panels contains exactly two related photographs. Scroll down to reveal the second image from top to bottom through the organic seam; scroll up to reverse the reveal. Each panel stays in view for its own short transition. Reduced motion switches between the same two images without peeling or distortion.
+- `/hellion`: collection story, paired portraits, a front/side silhouette pair and paired texture details.
 - `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Native modal viewer supports arrows, Escape, focus restoration and touch controls.
 - `/about`: supplied creative-world text, Amsterdam location and the verified Instagram link. Biography, email and selected press remain optional until supplied.
 
@@ -29,7 +29,7 @@ Responsive compositions are tailored for mobile. Scroll reveals use Intersection
 
 ## Update content
 
-Edit `content/site.ts`. Images, navigation, home assignments, full scroll sequence, lookbook sequence, biography, email, social links and press are centralized here. Add an image to `public/media`, then create a typed `Media` record containing its actual width, height, alt text, role and descriptive title. Use its ID in `site.home` or `site.lookbook` to curate without changing components. `position` controls a crop's focal point.
+Edit `content/site.ts`. Images, navigation, home assignments, related photo pairs, biography, email, social links and press are centralized here. Add an image to `public/media`, then create a typed `Media` record containing its actual width, height, alt text, role and descriptive title. Use its ID in `site.home` or a two-photo tuple in `site.photoPairs` to curate without changing components. `position` controls a crop's focal point.
 
 `content/media-provenance.json` maps the 16 photographs to the user-supplied source filenames. The `.jpeg` and `.jpg` versions of the veiled-eye close-up depict the same photo; it appears once in the archive. Titles describe imagery, not official look numbers or collection names. No collection dates, material construction claims, photographer credits, awards, education or press were inferred. Add verified credits and facts when available.
 
@@ -46,7 +46,7 @@ npx playwright install chromium webkit
 npm test
 ```
 
-Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, forward and reverse scroll shedding, archive filtering, modal keyboard behavior and focus restoration, lookbook navigation, contact links, reduced motion and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
+Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, top-to-bottom paired reveals and scroll reversal, archive filtering, modal keyboard behavior and focus restoration, silhouette pair transitions, contact links, reduced motion and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
 
 ## Deploy to Vercel
 
