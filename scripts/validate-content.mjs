@@ -11,7 +11,21 @@ for (const item of media) {
     throw new Error(`Invalid local media source: ${item.src}`);
   await access(path.join(process.cwd(), "public", item.src));
 }
-for (const id of [...Object.values(site.home), ...site.lookbook]) getMedia(id);
+for (const id of [
+  ...Object.values(site.home),
+  ...site.lookbook,
+  ...site.scrollSequence,
+])
+  getMedia(id);
+const sequenceIds = new Set(site.scrollSequence);
+if (
+  sequenceIds.size !== site.scrollSequence.length ||
+  media.some((item) => !sequenceIds.has(item.id))
+) {
+  throw new Error(
+    "The scroll sequence must include every supplied photograph exactly once",
+  );
+}
 for (const entry of [...site.socials, ...site.press]) {
   if (new URL(entry.href).protocol !== "https:")
     throw new Error("External links must use HTTPS");

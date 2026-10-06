@@ -251,6 +251,7 @@ main {
   color: var(--muted);
 }
 .shedding-wrap {
+  width: 100%;
   min-width: 0;
 }
 .shedding {
@@ -277,20 +278,18 @@ main {
 }
 .shed-over {
   clip-path: polygon(
-    var(--shed) 0,
+    var(--shed, 0%) 0,
     100% 0,
     100% 100%,
-    var(--shed) 100%,
-    calc(var(--shed) + var(--fold-a)) 80%,
-    calc(var(--shed) - var(--fold-b)) 62%,
-    calc(var(--shed) + var(--fold-c)) 43%,
-    calc(var(--shed) - var(--fold-d)) 23%
+    var(--shed, 0%) 100%,
+    calc(var(--shed, 0%) + var(--fold-a, 0%)) 80%,
+    calc(var(--shed, 0%) - var(--fold-b, 0%)) 62%,
+    calc(var(--shed, 0%) + var(--fold-c, 0%)) 43%,
+    calc(var(--shed, 0%) - var(--fold-d, 0%)) 23%
   );
-  transition: clip-path 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .shed-over img {
-  transform: scale(1.02);
-  transition: transform 0.7s;
+  transform: scale(var(--peel-stretch, 1.02));
 }
 .surface-label {
   position: absolute;
@@ -301,32 +300,6 @@ main {
   justify-content: space-between;
   color: #fff;
   text-shadow: 0 1px 8px #000;
-}
-.shed-controls {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 59px;
-  border-bottom: 1px solid var(--line);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.shed-controls label {
-  display: flex;
-  gap: 12px;
-  white-space: nowrap;
-}
-.shed-controls input {
-  width: 100%;
-  min-width: 30px;
-  height: 32px;
-  accent-color: var(--red);
-  cursor: ew-resize;
-}
-.shed-controls button {
-  white-space: nowrap;
-  min-height: 44px;
 }
 .hero-foot {
   display: flex;
@@ -871,12 +844,6 @@ main {
   .archive-caption span:nth-child(2) {
     display: none;
   }
-  .shed-controls {
-    gap: 12px;
-  }
-  .shed-controls label {
-    font-size: 8px;
-  }
   .manifesto-bottom {
     margin-left: 15%;
   }
@@ -987,15 +954,6 @@ main {
     left: 15px;
     right: 15px;
     bottom: 15px;
-  }
-  .shed-controls {
-    gap: 14px;
-  }
-  .shed-controls label {
-    font-size: 8px;
-  }
-  .shed-controls button {
-    font-size: 8px;
   }
   .hero-foot {
     margin-top: 28px;
@@ -1271,7 +1229,7 @@ main {
 }
 .shed-seam {
   position: absolute;
-  left: var(--shed);
+  left: var(--shed, 0%);
   top: 0;
   height: 100%;
   width: 3%;
@@ -1293,5 +1251,94 @@ main {
     100% 100%,
     100% 0
   );
-  transition: left 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+  opacity: var(--seam-opacity, 0);
+}
+
+/* The same organic mask is now scrubbed by normal page scrolling. */
+.shedding-wrap {
+  --shed-top: clamp(24px, 8svh, 80px);
+  --shed-travel: clamp(220px, 40svh, 420px);
+}
+.shed-runway {
+  height: 0;
+}
+.is-scroll-linked .shed-sticky {
+  position: sticky;
+  top: var(--shed-top);
+}
+.is-scroll-linked .shed-runway {
+  height: calc(var(--shed-travel) * var(--sequence-steps, 1));
+}
+.shedding {
+  max-height: calc(100svh - 2 * var(--shed-top));
+}
+.hero-composition,
+.collection-surface {
+  align-items: start;
+}
+.hero-statement {
+  padding-top: 70px;
+}
+.collection-surface > div:first-child {
+  padding-top: 70px;
+}
+@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
+  .hero-statement,
+  .collection-surface > div:first-child {
+    position: sticky;
+    top: clamp(24px, 8svh, 80px);
+  }
+}
+@media (max-width: 700px) {
+  .hero-statement {
+    padding-top: 42px;
+  }
+  .collection-surface > div:first-child {
+    padding-top: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shed-over {
+    clip-path: none;
+  }
+  .shed-over img {
+    transform: scale(1.02);
+  }
+  .shed-seam {
+    display: none;
+  }
+}
+
+.shed-buffer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.lookbook {
+  align-items: start;
+}
+.lookbook .shedding {
+  aspect-ratio: 0.75;
+}
+.lookbook-aside {
+  position: sticky;
+  top: clamp(24px, 8svh, 80px);
+  padding-top: 45px;
+}
+.lookbook-aside p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+@media (max-width: 700px) {
+  .lookbook-aside {
+    position: static;
+    padding-top: 0;
+    order: -1;
+  }
+  .lookbook-aside p {
+    grid-column: 2;
+  }
 }

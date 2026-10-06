@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { site, getMedia } from "../content/site";
 import AxeBuilder from "@axe-core/playwright";
 for (const route of ["/", "/hellion", "/archive", "/about"]) {
   test(`${route} renders, loads photography and has no overflow or accessibility violations`, async ({
@@ -16,6 +17,7 @@ for (const route of ["/", "/hellion", "/archive", "/about"]) {
       )
       .toBe(true);
     const firstImage = page.locator("main img").first();
+    await expect(firstImage).toBeVisible();
     await expect
       .poll(
         () =>
@@ -33,19 +35,98 @@ for (const route of ["/", "/hellion", "/archive", "/about"]) {
     expect(errors).toEqual([]);
   });
 }
-test("shedding supports reveal, reset and keyboard adjustment", async ({
-  page,
-}) => {
-  await page.goto("/");
-  const range = page.getByRole("slider", { name: "Shed the surface" });
-  await expect(range).toHaveValue("0");
-  await page.getByRole("button", { name: "Reveal inner surface" }).click();
-  await expect(range).toHaveValue("100");
-  await page.getByRole("button", { name: "Restore outer surface" }).click();
-  await range.focus();
-  await range.press("ArrowRight");
-  await expect(range).toHaveValue("1");
-});
+async function scrollSequence(
+  page: import("@playwright/test").Page,
+  selector: string,
+  step: number,
+  count: number,
+) {
+  const wrapper = page.locator(selector).first();
+  await expect(wrapper).toHaveClass(/is-scroll-linked/);
+  const geometry = await wrapper.evaluate((element) => {
+    const sticky = element.querySelector(".shed-sticky")!;
+    const runway = element.querySelector(".shed-runway")!;
+    return {
+      start:
+        element.getBoundingClientRect().top +
+        window.scrollY -
+        parseFloat(getComputedStyle(sticky).top),
+      travel: runway.getBoundingClientRect().height,
+    };
+  });
+  await page.evaluate(
+    ({ geometry, step, count }) =>
+      window.scrollTo({
+        top: geometry.start + (geometry.travel * step) / (count - 1),
+        behavior: "instant",
+      }),
+    { geometry, step, count },
+  );
+}
+
+for (const route of ["/", "/hellion"]) {
+  test(`${route} scrolls through every supplied photograph and reverses without controls`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    await expect(page.getByRole("slider")).toHaveCount(0);
+    await expect(
+      page.getByText("Shed the surface", { exact: true }),
+    ).toHaveCount(0);
+    const selector = ".shedding-wrap";
+    const sequence = page.locator(".shedding-wrap").first();
+    for (let index = 0; index < site.scrollSequence.length; index++) {
+      const step =
+        index === site.scrollSequence.length - 1 ? index : index + 0.2;
+      await scrollSequence(page, selector, step, site.scrollSequence.length);
+      const layer =
+        index === site.scrollSequence.length - 1
+          ? ".shed-under img"
+          : ".shed-over img";
+      await expect(sequence.locator(layer)).toBeVisible();
+      await expect(sequence.locator(layer)).toHaveAttribute(
+        "alt",
+        getMedia(site.scrollSequence[index]).alt,
+      );
+      await expect
+        .poll(() =>
+          sequence
+            .locator(".shedding")
+            .evaluate((e) =>
+              parseFloat((e as HTMLElement).style.getPropertyValue("--shed")),
+            ),
+        )
+        .toBeGreaterThan(0);
+      await expect(sequence.locator("img")).toHaveCount(
+        index === site.scrollSequence.length - 1
+          ? 2
+          : index >= site.scrollSequence.length - 2
+            ? 2
+            : 3,
+      );
+    }
+    await expect(sequence.locator(".surface-label")).toContainText("16 / 16");
+    await scrollSequence(page, selector, 3.25, site.scrollSequence.length);
+    await expect(sequence.locator(".shed-over img")).toHaveAttribute(
+      "alt",
+      getMedia(site.scrollSequence[3]).alt,
+    );
+    await scrollSequence(page, selector, 0, site.scrollSequence.length);
+    await expect(sequence.locator(".shed-over img")).toHaveAttribute(
+      "alt",
+      getMedia(site.scrollSequence[0]).alt,
+    );
+    await expect
+      .poll(() =>
+        sequence
+          .locator(".shedding")
+          .evaluate((e) =>
+            parseFloat((e as HTMLElement).style.getPropertyValue("--shed")),
+          ),
+      )
+      .toBeLessThan(0.5);
+  });
+}
 test("archive filters, opens viewer, navigates and returns focus", async ({
   page,
 }) => {
@@ -69,15 +150,30 @@ test("archive filters, opens viewer, navigates and returns focus", async ({
   await expect(page.getByRole("dialog")).not.toBeVisible();
   await expect(first).toBeFocused();
 });
-test("lookbook changes photographs and wraps", async ({ page }) => {
+test("lookbook follows scroll position in both directions", async ({
+  page,
+}) => {
   await page.goto("/hellion");
-  await expect(page.locator(".lookbook-info h3")).toHaveText("Silhouette / 01");
-  await page
-    .getByRole("button", { name: "Previous image", exact: true })
-    .click();
-  await expect(page.locator(".lookbook-info h3")).toHaveText("Texture / 03");
-  await page.getByRole("button", { name: "Next image", exact: true }).click();
-  await expect(page.locator(".lookbook-info h3")).toHaveText("Silhouette / 01");
+  await scrollSequence(
+    page,
+    ".lookbook .shedding-wrap",
+    2.2,
+    site.lookbook.length,
+  );
+  await expect(page.locator(".lookbook .shed-over img")).toHaveAttribute(
+    "alt",
+    getMedia(site.lookbook[2]).alt,
+  );
+  await scrollSequence(
+    page,
+    ".lookbook .shedding-wrap",
+    0,
+    site.lookbook.length,
+  );
+  await expect(page.locator(".lookbook .shed-over img")).toHaveAttribute(
+    "alt",
+    getMedia(site.lookbook[0]).alt,
+  );
 });
 test("navigation works on touch and contact links to supplied Instagram", async ({
   page,
@@ -103,7 +199,12 @@ test("reduced motion keeps content visible and eliminates animation", async ({
   await page.goto("/");
   await expect(page.locator(".manifesto")).toHaveCSS("opacity", "1");
   await expect(page.locator(".hero-title")).toHaveCSS("animation-name", "none");
-  await page.getByRole("button", { name: "Reveal inner surface" }).click();
+  await scrollSequence(page, ".shedding-wrap", 2.5, site.scrollSequence.length);
+  await expect(page.locator(".shed-over img")).toHaveAttribute(
+    "alt",
+    getMedia(site.scrollSequence[2]).alt,
+  );
+  await expect(page.locator(".shed-over")).toHaveCSS("clip-path", "none");
   await expect(page.locator(".shed-over")).toHaveCSS(
     "transition-duration",
     "0s",

@@ -34,17 +34,14 @@ export default function Hellion() {
             <br />
             <em>worlds.</em>
           </h2>
-          <p>Move the seam. Reveal what lies beneath.</p>
+          <p>Scroll to reveal what lies beneath.</p>
           <span className="content-note">
             Skin, surface and transformation.
             <br />
             Selected HELLION imagery.
           </span>
         </div>
-        <Shedding
-          outer={getMedia(site.home.hero)}
-          inner={getMedia(site.home.reveal)}
-        />
+        <Shedding items={site.scrollSequence.map(getMedia)} />
       </div>
       <div className="collection-quote">
         <span className="eyebrow">02 / Transformation</span>

@@ -44,10 +44,7 @@ export default function Home() {
             </Link>
             <span className="hero-side-note">01 — Skin / surface / desire</span>
           </div>
-          <Shedding
-            outer={getMedia(site.home.hero)}
-            inner={getMedia(site.home.reveal)}
-          />
+          <Shedding items={site.scrollSequence.map(getMedia)} />
         </div>
         <div className="hero-foot">
           <span>Scroll to unfold ↓</span>
