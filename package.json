@@ -1,0 +1,48 @@
+{
+  "name": "storm-nijhuis",
+  "version": "1.0.0",
+  "description": "HELLION — Storm Nijhuis editorial fashion portfolio",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "validate:content": "node scripts/validate-content.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andaykhvc/Storm-Nijhuis.git"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/andaykhvc/Storm-Nijhuis/issues"
+  },
+  "homepage": "https://github.com/andaykhvc/Storm-Nijhuis#readme",
+  "dependencies": {
+    "@fontsource-variable/bodoni-moda": "^5.3.0",
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "type": "module"
+}
