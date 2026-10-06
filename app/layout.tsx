@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/bodoni-moda";
-import "@fontsource-variable/bodoni-moda/standard-italic.css";
+import "@fontsource/unifrakturcook/700.css";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -9,23 +8,23 @@ import { Footer } from "@/components/footer";
 import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: {
-    default: "HELLION — Storm Nijhuis",
+    default: "Storm Nijhuis — HELLION",
     template: "%s — Storm Nijhuis / HELLION",
   },
   description: site.description,
   icons: { icon: "/icon.svg" },
   openGraph: {
-    title: "HELLION — Storm Nijhuis",
+    title: "Storm Nijhuis — HELLION",
     description: site.description,
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "HELLION — Storm Nijhuis",
+    title: "Storm Nijhuis — HELLION",
     description: site.description,
   },
 };
-export const viewport: Viewport = { themeColor: "#e9e6dc" };
+export const viewport: Viewport = { themeColor: "#090909" };
 export default function RootLayout({
   children,
 }: {

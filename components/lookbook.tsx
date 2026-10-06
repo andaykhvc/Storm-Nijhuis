@@ -1,6 +1,5 @@
 import { Shedding } from "@/components/shedding";
 import type { Media } from "@/content/site";
-
 export function Lookbook({ items }: { items: Media[] }) {
   if (!items.length) return null;
   return (
@@ -10,13 +9,17 @@ export function Lookbook({ items }: { items: Media[] }) {
     >
       <Shedding items={items} priority={false} />
       <div className="lookbook-aside">
-        <span className="eyebrow">The sequence</span>
+        <span className="eyebrow">The silhouette sequence</span>
         <h2>
-          Another
+          Shape.
           <br />
-          <em>skin.</em>
+          Volume.
+          <br />
+          Proportion.
         </h2>
         <p>
+          Seven views of the silhouettes.
+          <br />
           Scroll down to move forward.
           <br />
           Scroll up to return.

@@ -4,25 +4,26 @@ import { media } from "@/content/site";
 export const metadata: Metadata = {
   title: "Archive",
   description:
-    "The HELLION visual archive. Selected photography, silhouettes, garment details and editorial imagery.",
+    "The HELLION photographic archive by Storm Nijhuis. Full silhouettes, close details and editorial portraits.",
 };
 export default function ArchivePage() {
   return (
     <main id="main" className="archive-page">
       <div className="archive-intro">
-        <span className="eyebrow">An evolving visual index</span>
+        <span className="eyebrow">Storm Nijhuis / HELLION</span>
         <h1>
-          The <em>archive.</em>
+          Photographic
+          <br />
+          archive.
         </h1>
         <div>
           <p>
-            Fragments of a creative world.
+            Sixteen photographs, from full silhouettes to close details.
             <br />
-            Surfaces, layers, transformations.
+            Choose a view below and open an image to look closer.
           </p>
           <span className="content-note">
-            The HELLION image library.
-            <br />A changing visual world.
+            Silhouettes / Details / Editorial
           </span>
         </div>
       </div>

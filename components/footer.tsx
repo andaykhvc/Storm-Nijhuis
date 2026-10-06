@@ -4,12 +4,12 @@ export function Footer() {
   return (
     <footer className="footer">
       <Link href="/" className="footer-mark">
-        HELLION<span>By Storm Nijhuis</span>
+        Storm Nijhuis<span>HELLION / Fashion portfolio</span>
       </Link>
       <p>
-        Skin is a beginning.
+        Selected silhouettes, portraits
         <br />
-        Not a boundary.
+        and details from HELLION.
       </p>
       <div className="footer-meta">
         <span>{site.location}</span>

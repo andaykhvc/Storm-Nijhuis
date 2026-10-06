@@ -7,106 +7,122 @@ export default function Home() {
     <main id="main">
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-topline">
-          <span>Independent fashion</span>
+          <span>Fashion portfolio</span>
           <span>Amsterdam / NL</span>
-          <span>A study in transformation</span>
         </div>
         <div className="hero-title">
-          <h1 id="hero-title">
-            HELLION
-            <span className="title-star" aria-hidden="true">
-              ∗
-            </span>
-          </h1>
+          <span className="eyebrow">The designer behind HELLION</span>
+          <h1 id="hero-title">Storm Nijhuis</h1>
           <div className="hero-title-bottom">
-            <span>The world of Storm Nijhuis</span>
-            <span>Purity / sin / skin</span>
+            <span>HELLION / Selected work</span>
+            <span>Silhouette. Structure. Surface.</span>
           </div>
         </div>
-        <div className="hero-composition">
+        <nav className="section-index" aria-label="On this page">
+          <a href="#selected-work">
+            <span>01</span> Selected work <span>↓</span>
+          </a>
+          <a href="#approach">
+            <span>02</span> Approach <span>↓</span>
+          </a>
+          <Link href="/archive">
+            <span>03</span> Archive <span>↗</span>
+          </Link>
+          <Link href="/about#contact">
+            <span>04</span> Contact <span>↗</span>
+          </Link>
+        </nav>
+        <div id="selected-work" className="hero-composition">
           <div className="hero-statement">
-            <span className="eyebrow">
-              <span className="red-dot" />
-              An ongoing transformation
-            </span>
-            <h2>
-              Nothing <br />
-              stays
-              <br />
-              <em>innocent.</em>
-            </h2>
+            <span className="eyebrow">01 / Selected work</span>
+            <h2>HELLION</h2>
             <p>
-              A surface. A tension.
-              <br />A body becoming something else.
+              A study of how clothing changes the outline of the body. Dark
+              silhouettes, contrasting stripes and sculptural forms bring
+              structure and softness into the same frame.
             </p>
             <Link className="text-link" href="/hellion">
-              Enter Hellion <span>↗</span>
+              Explore the work <span>↗</span>
             </Link>
-            <span className="hero-side-note">01 — Skin / surface / desire</span>
+            <span className="hero-side-note">
+              16 photographs / Scroll down to reveal the next. Scroll up to
+              return.
+            </span>
           </div>
           <Shedding items={site.scrollSequence.map(getMedia)} />
         </div>
         <div className="hero-foot">
-          <span>Scroll to unfold ↓</span>
-          <span>Selected imagery / HELLION</span>
+          <span>Storm Nijhuis / HELLION</span>
+          <Link href="/archive">Browse every photograph ↗</Link>
         </div>
       </section>
-      <section className="manifesto">
-        <span className="eyebrow">01 / The creative world</span>
-        <h2>
-          Between purity
+      <section
+        id="approach"
+        className="manifesto"
+        aria-labelledby="approach-title"
+      >
+        <span className="eyebrow">02 / Approach</span>
+        <h2 id="approach-title">
+          The body sets
           <br />
-          and <em>temptation.</em>
+          the shape.
         </h2>
         <div className="manifesto-bottom">
           <span className="small-symbol" aria-hidden="true">
-            ∗
+            ✦
           </span>
           <p>
-            Skin remembers.
-            <br />
-            Layers conceal.
-            <br />
-            Transformation reveals.
+            A raised collar changes a profile. A curved headpiece extends a
+            silhouette. A veil changes what we see. HELLION brings these
+            gestures together to explore how a garment can frame, conceal and
+            reshape the body.
           </p>
           <Link className="text-link" href="/hellion">
-            Explore the world ↗
+            View the visual study ↗
           </Link>
         </div>
       </section>
-      <section className="details">
+      <section className="details" aria-labelledby="details-title">
         <div className="detail-large">
           <MediaImage
             item={getMedia(site.home.detail)}
             sizes="(max-width: 700px) 100vw, 60vw"
           />
           <span className="image-caption">
-            Gloss / 01 <span>Selected photography</span>
+            Gloss / 01 <span>Profile and structure</span>
           </span>
         </div>
         <div className="detail-small">
-          <span className="eyebrow">02 / Beneath the surface</span>
+          <span className="eyebrow">03 / Form & detail</span>
           <MediaImage
             item={getMedia(site.home.isolated)}
-            sizes="(max-width: 700px) 55vw, 25vw"
+            sizes="(max-width: 700px) 100vw, 30vw"
           />
-          <h2>
-            To shed is
+          <h2 id="details-title">
+            Read the
             <br />
-            to <em>begin.</em>
+            details.
           </h2>
+          <p>
+            The archive places full silhouettes alongside close views, so shape,
+            texture and proportion can be seen together.
+          </p>
           <Link className="text-link" href="/archive">
             View the archive ↗
           </Link>
         </div>
       </section>
-      <section className="closing">
-        <span className="eyebrow">Storm Nijhuis / Amsterdam</span>
-        <h2>
-          A new skin.
+      <section className="closing" aria-labelledby="closing-title">
+        <span className="eyebrow">04 / About & contact</span>
+        <h2 id="closing-title">
+          Storm Nijhuis.
           <br />
-          The same <em>desire.</em>
+          Behind the work.
         </h2>
+        <p>
+          Learn more about HELLION or get in touch about a collaboration through
+          Instagram.
+        </p>
         <Link className="text-link" href="/about">
           About Storm ↗
         </Link>

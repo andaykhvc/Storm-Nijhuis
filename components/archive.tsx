@@ -94,9 +94,9 @@ export function Archive({ items }: { items: Media[] }) {
         <div className="archive-empty">
           <span className="eyebrow">The photographic archive</span>
           <h2>
-            Still to be
+            No photographs
             <br />
-            <em>revealed.</em>
+            in this view.
           </h2>
           <p>There are no images in this selection yet.</p>
           <button className="text-link" onClick={() => setFilter("all")}>

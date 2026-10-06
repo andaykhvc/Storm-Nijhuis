@@ -1,6 +1,6 @@
 # Storm Nijhuis / HELLION
 
-An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language follows the supplied photography: near-black, aged ivory, weathered stone and a restrained dark red accent. Fonts are served locally. There are no trackers, accounts, database or commerce dependencies.
+An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language is predominantly black with white typography: a bold, locally served blackletter nameplate, strong sans-serif text, clear section indexes and monochrome photographic presentation. The copy describes visible forms and how to browse the work. Fonts are served locally. There are no trackers, accounts, database or commerce dependencies.
 
 ## Run locally
 
@@ -20,7 +20,7 @@ npm start
 
 ## Experiences
 
-- `/`: curated editorial opening with a tactile, organic seam revealing a second photograph. Scroll down to shed the outer photograph and reveal the next image across all 16 supplied photographs; scroll back up to reverse the sequence. The image stays in view during the sequence. Only the active pair and the upcoming image are mounted. Reduced motion uses discrete image changes with no peeling or distortion.
+- `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Scroll down to shed the outer photograph and reveal the next image across all 16 supplied photographs; scroll back up to reverse the sequence. The image stays in view during the sequence. Only the active pair and the upcoming image are mounted. Reduced motion uses discrete image changes with no peeling or distortion.
 - `/hellion`: collection story and scroll-driven visual sequence.
 - `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Native modal viewer supports arrows, Escape, focus restoration and touch controls.
 - `/about`: supplied creative-world text, Amsterdam location and the verified Instagram link. Biography, email and selected press remain optional until supplied.
