@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
+import { FocusView } from "@/components/focus-view";
 import { MediaImage } from "@/components/media-image";
 import type { Media } from "@/content/site";
 
@@ -158,6 +159,7 @@ export function Shedding({
             />
           </div>
           <span className="shed-seam" aria-hidden="true" />
+          <FocusView item={items[labelIndex]} />
           <div className="surface-label">
             <span>{String(labelIndex + 1).padStart(2, "0")} / 02</span>
             <span>{items[labelIndex].title}</span>

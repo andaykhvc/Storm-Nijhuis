@@ -6,6 +6,7 @@ import type { Media } from "@/content/site";
 type Filter = "all" | "full-look" | "detail" | "editorial";
 export function Archive({ items }: { items: Media[] }) {
   const ready = useHydrated();
+  const [layout, setLayout] = useState<"editorial" | "contact">("editorial");
   const [filter, setFilter] = useState<Filter>("all");
   const [selected, setSelected] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -54,12 +55,28 @@ export function Archive({ items }: { items: Media[] }) {
             </button>
           ))}
         </div>
+        <div className="archive-layout" aria-label="Archive layout">
+          <button
+            disabled={!ready}
+            aria-pressed={layout === "editorial"}
+            onClick={() => setLayout("editorial")}
+          >
+            Editorial grid
+          </button>
+          <button
+            disabled={!ready}
+            aria-pressed={layout === "contact"}
+            onClick={() => setLayout("contact")}
+          >
+            Contact sheet
+          </button>
+        </div>
         <span className="eyebrow" aria-live="polite">
           {String(filtered.length).padStart(2, "0")} entries
         </span>
       </div>
       {filtered.length ? (
-        <div className="archive-grid">
+        <div className="archive-grid" data-layout={layout}>
           {filtered.map((item, i) => (
             <button
               className="archive-entry"
@@ -74,8 +91,15 @@ export function Archive({ items }: { items: Media[] }) {
               <div className="archive-image">
                 <MediaImage
                   item={item}
-                  sizes="(max-width: 700px) 90vw, (max-width: 1100px) 45vw, 33vw"
+                  sizes={
+                    layout === "contact"
+                      ? "(max-width: 700px) 43vw, (max-width: 1100px) 22vw, 16vw"
+                      : "(max-width: 700px) 90vw, (max-width: 1100px) 45vw, 33vw"
+                  }
                 />
+                <span className="contact-frame" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")} / HELLION
+                </span>
                 <span className="view-label">View ↗</span>
               </div>
               <span className="archive-caption">
