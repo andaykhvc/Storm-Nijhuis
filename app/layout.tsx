@@ -3,6 +3,8 @@ import "@fontsource/unifrakturcook/700.css";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { Opening } from "@/components/opening";
+import { Atmosphere } from "@/components/atmosphere";
 import { Motion } from "@/components/motion";
 import { Footer } from "@/components/footer";
 import { site } from "@/content/site";
@@ -39,6 +41,8 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           Skip to content
         </a>
+        <Opening />
+        <Atmosphere />
         <Header />
         <Motion />
         {children}
