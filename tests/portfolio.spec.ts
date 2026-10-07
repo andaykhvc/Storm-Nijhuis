@@ -322,7 +322,7 @@ test("deep links and reduced motion bypass the opening", async ({ page }) => {
   );
 });
 
-test("focus view opens the revealed photo, explores detail and restores the page", async ({
+test("focus view fits the revealed photo and restores the page", async ({
   page,
 }) => {
   await page.goto("/");
@@ -343,26 +343,15 @@ test("focus view opens the revealed photo, explores detail and restores the page
   expect(await page.evaluate(() => document.body.style.overflow)).toBe(
     "hidden",
   );
-  await dialog.getByRole("button", { name: "Detail +", exact: true }).click();
-  await expect(
-    dialog.getByRole("button", { name: "Detail +", exact: true }),
-  ).toHaveAttribute("aria-pressed", "true");
+  await expect(dialog.getByRole("button")).toHaveCount(1);
   const stage = dialog.locator(".focus-stage");
   expect(
     await stage.evaluate(
       (element) =>
-        element.scrollWidth > element.clientWidth &&
-        element.scrollHeight > element.clientHeight,
+        element.scrollWidth <= element.clientWidth &&
+        element.scrollHeight <= element.clientHeight,
     ),
   ).toBe(true);
-  await stage.evaluate((element) =>
-    element.scrollTo({ top: 100, left: 100, behavior: "instant" }),
-  );
-  expect(await stage.evaluate((element) => element.scrollTop)).toBeGreaterThan(
-    0,
-  );
-  await dialog.getByRole("button", { name: "Fit", exact: true }).click();
-  await expect(stage).toHaveAttribute("data-detail", "false");
   const audit = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();

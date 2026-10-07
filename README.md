@@ -21,7 +21,7 @@ npm start
 ## Experiences
 
 - `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Each of the three image panels contains exactly two related photographs. Scroll down to reveal the second image from top to bottom through the organic seam; scroll up to reverse the reveal. Each panel stays in view for its own short transition. Reduced motion switches between the same two images without peeling or distortion.
-- Paired photographs include a Focus control for the currently revealed image. A vertical shutter opens an immersive native dialog; Fit and Detail modes let visitors inspect the original framing or scroll across a larger view. Keyboard Escape restores focus to the exact opener, and touch scrolling works in Detail mode.
+- Paired photographs include a Focus control for the currently revealed image. A vertical shutter opens an immersive native dialog with the complete photograph fitted to the screen. Keyboard Escape restores focus to the exact opener.
 - `/hellion`: collection story, paired portraits, a front/side silhouette pair and paired texture details.
 - `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Switch between the editorial grid and a numbered contact sheet with a short vertical exposure animation. Both layouts retain the current filter and native modal viewer, which supports arrows, Escape, focus restoration and touch controls.
 - `/about`: supplied creative-world text, Amsterdam location and the verified Instagram link. Biography, email and selected press remain optional until supplied.
@@ -47,7 +47,7 @@ npx playwright install chromium webkit
 npm test
 ```
 
-Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, top-to-bottom paired reveals and scroll reversal, archive filtering, modal keyboard behavior and focus restoration, silhouette pair transitions, contact links, reduced motion, photographic focus/zoom/scroll restoration, contact-sheet filtering and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
+Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, top-to-bottom paired reveals and scroll reversal, archive filtering, modal keyboard behavior and focus restoration, silhouette pair transitions, contact links, reduced motion, photographic focus and page-scroll restoration, contact-sheet filtering and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
 
 ## Deploy to Vercel
 

@@ -1703,24 +1703,11 @@ main {
 .focus-control:hover {
   border-color: var(--ink);
 }
-.focus-control[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
-}
-.focus-scales {
-  display: flex;
-  gap: 8px;
-}
 .focus-stage {
   position: relative;
-  overflow: auto;
-  overscroll-behavior: contain;
+  overflow: hidden;
   background: #111;
   margin-top: 18px;
-}
-.focus-stage:focus-visible {
-  outline-offset: -3px;
 }
 .focus-canvas {
   width: 100%;
@@ -1731,10 +1718,6 @@ main {
   height: 100%;
   object-fit: contain;
   transform: none;
-}
-.focus-stage[data-detail="true"] .focus-canvas {
-  width: 200%;
-  height: 200%;
 }
 .focus-shutter {
   position: absolute;
@@ -1858,12 +1841,6 @@ main {
   }
   .focus-bottom p {
     font-size: 12px;
-  }
-  .focus-scales {
-    align-self: stretch;
-  }
-  .focus-scales button {
-    flex: 1;
   }
   .archive-layout {
     margin-left: 0;

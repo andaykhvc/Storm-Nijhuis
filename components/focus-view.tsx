@@ -7,9 +7,7 @@ import type { Media } from "@/content/site";
 
 function FocusDialog({ item, close }: { item: Media; close: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
   const titleId = useId();
-  const [detail, setDetail] = useState(false);
 
   useEffect(() => {
     const element = dialog.current;
@@ -25,12 +23,6 @@ function FocusDialog({ item, close }: { item: Media; close: () => void }) {
   function dismiss() {
     dialog.current?.close();
     close();
-  }
-
-  function changeScale(next: boolean) {
-    setDetail(next);
-    // Return to the top-left when changing scale; native scrolling works on touch and keyboard.
-    stage.current?.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }
 
   return (
@@ -49,43 +41,16 @@ function FocusDialog({ item, close }: { item: Media; close: () => void }) {
           Close ×
         </button>
       </div>
-      <div
-        ref={stage}
-        className="focus-stage"
-        data-detail={detail}
-        role="region"
-        aria-label="Photograph; scroll to explore when detail view is selected"
-        // The scrollable image region must be reachable for keyboard panning.
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
-      >
+      <div className="focus-stage">
         <div className="focus-canvas">
-          <MediaImage item={item} eager sizes={detail ? "200vw" : "100vw"} />
+          <MediaImage item={item} eager sizes="100vw" />
         </div>
         <span className="focus-shutter" aria-hidden="true" />
       </div>
       <div className="focus-bottom">
         <div>
           <h2 id={titleId}>{item.title}</h2>
-          <p>
-            {detail ? "Scroll or swipe to explore the details." : item.caption}
-          </p>
-        </div>
-        <div className="focus-scales" aria-label="Photograph scale">
-          <button
-            className="focus-control"
-            aria-pressed={!detail}
-            onClick={() => changeScale(false)}
-          >
-            Fit
-          </button>
-          <button
-            className="focus-control"
-            aria-pressed={detail}
-            onClick={() => changeScale(true)}
-          >
-            Detail +
-          </button>
+          {item.caption ? <p>{item.caption}</p> : null}
         </div>
       </div>
     </dialog>
