@@ -386,6 +386,11 @@ test("contact sheet keeps filters and image navigation working", async ({
     "contact",
   );
   await expect(page.locator(".archive-entry")).toHaveCount(16);
+  const frames = page.locator(".archive-image");
+  const firstFrame = await frames.nth(0).boundingBox();
+  const secondFrame = await frames.nth(1).boundingBox();
+  expect(Math.abs(firstFrame!.width - secondFrame!.width)).toBeLessThan(2);
+  expect(Math.abs(firstFrame!.height - secondFrame!.height)).toBeLessThan(2);
   await page.getByRole("button", { name: "Details", exact: true }).click();
   await expect(page.locator(".archive-entry")).toHaveCount(4);
   const first = page.locator(".archive-entry").first();
