@@ -13,6 +13,9 @@ export function Footer() {
       </p>
       <div className="footer-meta">
         <span>{site.location}</span>
+        <a href="#main" className="back-to-top">
+          Back to top ↑
+        </a>
         <Link href="/about#contact">Contact ↗</Link>
         <span>© {new Date().getFullYear()} Storm Nijhuis</span>
       </div>

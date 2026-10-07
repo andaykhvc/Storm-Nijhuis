@@ -11,7 +11,9 @@ export default function Home() {
         </div>
         <div className="hero-title">
           <span className="eyebrow">The designer behind HELLION</span>
-          <h1 id="hero-title">Storm Nijhuis</h1>
+          <h1 id="hero-title">
+            <span>Storm</span> <span>Nijhuis</span>
+          </h1>
           <div className="hero-title-bottom">
             <span>HELLION / Selected work</span>
             <span>Silhouette. Structure. Surface.</span>
@@ -55,12 +57,29 @@ export default function Home() {
           <Link href="/archive">Browse every photograph ↗</Link>
         </div>
       </section>
+      <div className="type-interlude" aria-hidden="true">
+        <div className="type-track">
+          Body <span>×</span> Form <span>×</span> Surface
+        </div>
+        <div className="type-track type-track-outline">
+          Surface <span>×</span> Form <span>×</span> Body
+        </div>
+      </div>
       <section
         id="approach"
         className="manifesto"
         aria-labelledby="approach-title"
       >
         <span className="eyebrow">02 / Approach</span>
+        <svg
+          className="chapter-number"
+          viewBox="0 0 600 600"
+          aria-hidden="true"
+        >
+          <text x="0" y="480">
+            II
+          </text>
+        </svg>
         <h2 id="approach-title">
           The body sets
           <br />
@@ -113,6 +132,11 @@ export default function Home() {
       </section>
       <section className="closing" aria-labelledby="closing-title">
         <span className="eyebrow">04 / About & contact</span>
+        <svg className="closing-seal" viewBox="0 0 600 600" aria-hidden="true">
+          <text x="0" y="480">
+            SN
+          </text>
+        </svg>
         <h2 id="closing-title">
           Storm Nijhuis.
           <br />

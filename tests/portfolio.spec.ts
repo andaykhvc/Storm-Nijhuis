@@ -259,3 +259,63 @@ test("designer name and section index lead directly to the work and approach", a
   await expect(page).toHaveURL(/#selected-work$/);
   await expect(page.locator(".hero-statement h2")).toBeInViewport();
 });
+
+test("opening completes automatically and only plays once per tab", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const opening = page.locator(".opening");
+  await expect(opening).toBeVisible();
+  await expect(opening).toHaveAttribute("aria-hidden", "true");
+  await expect(opening).toBeHidden({ timeout: 4000 });
+  await page.reload();
+  await expect(page.locator(".menu-toggle")).toBeEnabled();
+  await expect(opening).toBeHidden();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Storm Nijhuis" }),
+  ).toBeVisible();
+});
+
+test("opening dismisses on interaction and reading progress follows the page", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator(".opening")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".opening")).toBeHidden();
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "instant",
+    }),
+  );
+  await expect
+    .poll(() =>
+      page
+        .locator(".reading-progress")
+        .evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).a),
+    )
+    .toBeGreaterThan(0.99);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect
+    .poll(() =>
+      page
+        .locator(".reading-progress")
+        .evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).a),
+    )
+    .toBeLessThan(0.01);
+});
+
+test("deep links and reduced motion bypass the opening", async ({ page }) => {
+  await page.goto("/about#contact");
+  await expect(page.locator(".menu-toggle")).toBeEnabled();
+  await expect(page.locator(".opening")).toBeHidden();
+  await expect(page.locator("#contact")).toBeInViewport();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".opening")).toBeHidden();
+  await expect(page.locator(".type-track").first()).toHaveCSS(
+    "transform",
+    "none",
+  );
+});
