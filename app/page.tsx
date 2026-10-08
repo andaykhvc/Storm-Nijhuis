@@ -16,7 +16,6 @@ export default function Home() {
           </h1>
           <div className="hero-title-bottom">
             <span>HELLION / Selected work</span>
-            <span>Silhouette. Structure. Surface.</span>
           </div>
         </div>
         <nav className="section-index" aria-label="On this page">
