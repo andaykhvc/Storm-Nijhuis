@@ -9,6 +9,8 @@ for (const route of ["/", "/hellion", "/archive", "/about"]) {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(route);
     await expect(page.locator("h1")).toBeVisible();
+    // Audit the settled page after the finite decorative opening.
+    await expect(page.locator(".opening")).toBeHidden();
     await expect
       .poll(() =>
         page.evaluate(
@@ -188,7 +190,7 @@ test("navigation works on touch and contact links to supplied Instagram", async 
 }, info) => {
   await page.goto("/");
   if (info.project.name === "mobile")
-    await page.getByRole("button", { name: "Menu +" }).click();
+    await page.getByRole("button", { name: "Menu" }).click();
   await page
     .getByRole("navigation")
     .getByRole("link", { name: "About" })
@@ -318,4 +320,104 @@ test("deep links and reduced motion bypass the opening", async ({ page }) => {
     "transform",
     "none",
   );
+});
+
+test("focus view fits the revealed photo and restores the page", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.keyboard.press("Escape");
+  await scrollPair(page, ".hero-composition .shedding-wrap", 1);
+  const panel = page.locator(".hero-composition .shedding");
+  const revealed = getMedia(site.photoPairs.hero[1]);
+  const launch = panel.getByRole("button", {
+    name: `Open focus view of ${revealed.title}`,
+  });
+  await launch.click();
+  const dialog = page.getByRole("dialog", {
+    name: revealed.title,
+    exact: true,
+  });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator("img")).toHaveAttribute("alt", revealed.alt);
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe(
+    "hidden",
+  );
+  await expect(dialog.getByRole("button")).toHaveCount(1);
+  const stage = dialog.locator(".focus-stage");
+  expect(
+    await stage.evaluate(
+      (element) =>
+        element.scrollWidth <= element.clientWidth &&
+        element.scrollHeight <= element.clientHeight,
+    ),
+  ).toBe(true);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(audit.violations).toEqual([]);
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+  await expect(launch).toBeFocused();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+  await expect(panel.locator("img")).toHaveCount(2);
+});
+
+test("contact sheet keeps filters and image navigation working", async ({
+  page,
+}) => {
+  await page.goto("/archive");
+  await page
+    .getByRole("button", { name: "Contact sheet", exact: true })
+    .click();
+  await expect(page.locator(".archive-grid")).toHaveAttribute(
+    "data-layout",
+    "contact",
+  );
+  await expect(page.locator(".archive-entry")).toHaveCount(16);
+  const frames = page.locator(".archive-image");
+  const firstFrame = await frames.nth(0).boundingBox();
+  const secondFrame = await frames.nth(1).boundingBox();
+  expect(Math.abs(firstFrame!.width - secondFrame!.width)).toBeLessThan(2);
+  expect(Math.abs(firstFrame!.height - secondFrame!.height)).toBeLessThan(2);
+  await page.getByRole("button", { name: "Details", exact: true }).click();
+  await expect(page.locator(".archive-entry")).toHaveCount(4);
+  const first = page.locator(".archive-entry").first();
+  await first.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.getByRole("button", { name: "Next archive image" }).click();
+  await expect(page.locator(".viewer-bottom h2")).toHaveText("Stripes / 02");
+  await page.getByRole("button", { name: "Close", exact: true }).click();
+  await expect(first).toBeFocused();
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(audit.violations).toEqual([]);
+  await page
+    .getByRole("button", { name: "Editorial grid", exact: true })
+    .click();
+  await expect(page.locator(".archive-grid")).toHaveAttribute(
+    "data-layout",
+    "editorial",
+  );
+  await expect(page.locator(".archive-entry")).toHaveCount(4);
+});
+
+test("photographic workbench respects reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/hellion");
+  await page.locator(".focus-launch").first().click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.locator(".focus-shutter")).toBeHidden();
+  await page.getByRole("button", { name: "Close", exact: true }).click();
+  await page.goto("/archive");
+  await page
+    .getByRole("button", { name: "Contact sheet", exact: true })
+    .click();
+  expect(
+    await page
+      .locator(".archive-entry img")
+      .first()
+      .evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe("none");
 });

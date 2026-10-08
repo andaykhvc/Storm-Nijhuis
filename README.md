@@ -1,6 +1,6 @@
 # Storm Nijhuis / HELLION
 
-An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language is predominantly black with white typography: a bold, locally served blackletter nameplate, strong sans-serif text, clear section indexes and monochrome photographic presentation. The copy describes visible forms and how to browse the work. Fonts are served locally. There are no trackers, accounts, database or commerce dependencies.
+An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language is predominantly black with white typography: a bold, locally served blackletter nameplate, strong sans-serif text, clear section indexes and monochrome photographic presentation. The copy describes visible forms and how to browse the work. Fonts are served locally. Interface labels use plain text without emoji or decorative icon glyphs. There are no trackers, accounts, database or commerce dependencies.
 
 ## Run locally
 
@@ -21,8 +21,9 @@ npm start
 ## Experiences
 
 - `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Each of the three image panels contains exactly two related photographs. Scroll down to reveal the second image from top to bottom through the organic seam; scroll up to reverse the reveal. Each panel stays in view for its own short transition. Reduced motion switches between the same two images without peeling or distortion.
+- Paired photographs include a Focus control for the currently revealed image. A vertical shutter opens an immersive native dialog with the complete photograph fitted to the screen. Keyboard Escape restores focus to the exact opener.
 - `/hellion`: collection story, paired portraits, a front/side silhouette pair and paired texture details.
-- `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Native modal viewer supports arrows, Escape, focus restoration and touch controls.
+- `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Switch between the editorial grid and a numbered contact sheet with a short vertical exposure animation. Both layouts retain the current filter and native modal viewer, which supports arrows, Escape, focus restoration and touch controls.
 - `/about`: supplied creative-world text, Amsterdam location and the verified Instagram link. Biography, email and selected press remain optional until supplied.
 
 Responsive compositions are tailored for mobile. Scroll reveals use IntersectionObserver; the shedding mask follows scroll position through a passive listener and event-driven animation frames, active only near the image. A two-shutter opening plays once per tab, completes in 2.1 seconds and dismisses immediately on interaction. Deep links, restored scroll positions and reduced-motion visitors bypass it; content remains available with JavaScript disabled. A scroll progress line, moving typographic interlude and mouse-following photographic light add atmosphere without changing the palette or fonts. There are no perpetual animation loops or animation libraries. All effects respect reduced-motion preferences. Navigation and the viewer have keyboard access; ordinary keyboard scrolling also drives the image transition. If JavaScript is disabled, editorial content and navigation remain visible; interactive controls require JavaScript.
@@ -46,7 +47,7 @@ npx playwright install chromium webkit
 npm test
 ```
 
-Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, top-to-bottom paired reveals and scroll reversal, archive filtering, modal keyboard behavior and focus restoration, silhouette pair transitions, contact links, reduced motion and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
+Browser tests cover every route on desktop Chromium and mobile WebKit, image decoding, overflow, automated WCAG checks, top-to-bottom paired reveals and scroll reversal, archive filtering, modal keyboard behavior and focus restoration, silhouette pair transitions, contact links, reduced motion, photographic focus and page-scroll restoration, contact-sheet filtering and the 404. The test runner uses a production server; it may reuse an existing local server outside CI.
 
 ## Deploy to Vercel
 

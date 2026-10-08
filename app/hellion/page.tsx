@@ -73,9 +73,7 @@ export default function Hellion() {
       </section>
       <div className="next-page">
         <span className="eyebrow">Every photograph, at your own pace</span>
-        <Link href="/archive">
-          The archive <span>↗</span>
-        </Link>
+        <Link href="/archive">The archive</Link>
       </div>
     </main>
   );
