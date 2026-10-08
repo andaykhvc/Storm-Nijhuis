@@ -57,9 +57,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-main img {
-  filter: grayscale(1);
-}
 h1,
 h2,
 h3,
