@@ -1471,23 +1471,20 @@ main {
 }
 .type-interlude {
   overflow: hidden;
-  padding: 70px 0;
+  display: flex;
+  justify-content: center;
+  padding: 70px var(--gutter);
   border-bottom: 1px solid var(--line);
   user-select: none;
 }
 .type-track {
-  width: max-content;
-  font-size: clamp(60px, 10vw, 170px);
-  font-weight: 900;
-  line-height: 1.12;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  transform: translateX(calc(-30px + var(--type-shift, 0px)));
-}
-.type-track-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--muted);
-  transform: translateX(calc(-90px - var(--type-shift, 0px)));
+  font-family: var(--gothic);
+  font-size: clamp(60px, 9vw, 150px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  transform: translateX(var(--type-shift, 0px));
 }
 .manifesto {
   position: relative;
@@ -1589,8 +1586,7 @@ main {
   .opening {
     display: none;
   }
-  .type-track,
-  .type-track-outline {
+  .type-track {
     transform: none;
   }
   .shedding::after {

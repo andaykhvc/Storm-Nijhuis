@@ -57,10 +57,7 @@ export default function Home() {
         </div>
       </section>
       <div className="type-interlude" aria-hidden="true">
-        <div className="type-track">Body / Form / Surface</div>
-        <div className="type-track type-track-outline">
-          Surface / Form / Body
-        </div>
+        <div className="type-track">{site.title}</div>
       </div>
       <section
         id="approach"
