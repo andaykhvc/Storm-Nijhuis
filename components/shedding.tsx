@@ -35,6 +35,7 @@ function paintSurface(
     "--seam-opacity",
     progress > 0 && progress < 1 ? "1" : "0",
   );
+  image.style.setProperty("--peel-stretch", `${1.02 + fold * 0.012}`);
 }
 
 export function Shedding({
@@ -138,21 +139,13 @@ export function Shedding({
   const [outer, inner] = items;
 
   return (
-    <div
-      ref={wrapper}
-      className="shedding-wrap"
-      style={{ "--photo-ratio": outer.width / outer.height } as CSSProperties}
-    >
+    <div ref={wrapper} className="shedding-wrap">
       <div ref={sticky} className="shed-sticky">
-        <div
-          ref={surface}
-          className="shedding"
-          style={{ ...initialSurface, aspectRatio: outer.width / outer.height }}
-        >
+        <div ref={surface} className="shedding" style={initialSurface}>
           <div className="shed-under">
             <MediaImage
               item={inner}
-              fit="contain"
+              fit={inner.role === "full-look" ? "contain" : "cover"}
               eager={priority}
               sizes={sizes}
             />
@@ -160,19 +153,17 @@ export function Shedding({
           <div className="shed-over">
             <MediaImage
               item={outer}
-              fit="contain"
+              fit={outer.role === "full-look" ? "contain" : "cover"}
               priority={priority}
               sizes={sizes}
             />
           </div>
           <span className="shed-seam" aria-hidden="true" />
-        </div>
-        <div className="surface-caption">
+          <FocusView item={items[labelIndex]} />
           <div className="surface-label">
             <span>{String(labelIndex + 1).padStart(2, "0")} / 02</span>
             <span>{items[labelIndex].title}</span>
           </div>
-          <FocusView item={items[labelIndex]} />
         </div>
       </div>
       <div ref={runway} className="shed-runway" aria-hidden="true" />

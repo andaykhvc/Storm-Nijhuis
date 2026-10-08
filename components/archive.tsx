@@ -100,6 +100,7 @@ export function Archive({ items }: { items: Media[] }) {
                 <span className="contact-frame" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")} / HELLION
                 </span>
+                <span className="view-label">View</span>
               </div>
               <span className="archive-caption">
                 <span>{item.title}</span>

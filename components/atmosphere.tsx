@@ -35,7 +35,7 @@ export function Atmosphere() {
             (window.innerHeight + rect.height);
           interlude.style.setProperty(
             "--type-shift",
-            `${(position - 0.5) * 36}px`,
+            `${(position - 0.5) * 90}px`,
           );
         }
       }

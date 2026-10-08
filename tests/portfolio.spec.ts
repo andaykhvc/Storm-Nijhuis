@@ -243,33 +243,23 @@ test("unknown route returns a useful 404", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("homepage keeps the work and links without repeating subsection labels", async ({
+test("designer name and section index lead directly to the work and approach", async ({
   page,
 }) => {
   await page.goto("/");
   await expect(
     page.getByRole("heading", { level: 1, name: "Storm Nijhuis" }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("navigation", { name: "On this page" }),
-  ).toHaveCount(0);
-  await expect(
-    page.locator(
-      ".hero-statement > .eyebrow, .manifesto > .eyebrow, .detail-small > .eyebrow, .closing > .eyebrow",
-    ),
-  ).toHaveCount(0);
-  await expect(page.locator(".hero-statement h2")).toHaveText("HELLION");
+  const index = page.getByRole("navigation", { name: "On this page" });
+  await index.getByRole("link", { name: /Approach/ }).click();
+  await expect(page).toHaveURL(/#approach$/);
   await expect(
     page.getByRole("heading", { name: /The body sets/ }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Explore the work", exact: true }).click();
-  await expect(page).toHaveURL(/\/hellion$/);
-  await page.goto("/");
-  await page.getByRole("link", { name: "View the archive", exact: true }).click();
-  await expect(page).toHaveURL(/\/archive$/);
-  await page.goto("/");
-  await page.getByRole("link", { name: "About Storm", exact: true }).click();
-  await expect(page).toHaveURL(/\/about$/);
+  ).toBeInViewport();
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await index.getByRole("link", { name: /Selected work/ }).click();
+  await expect(page).toHaveURL(/#selected-work$/);
+  await expect(page.locator(".hero-statement h2")).toBeInViewport();
 });
 
 test("opening completes automatically and only plays once per tab", async ({
@@ -338,7 +328,7 @@ test("focus view fits the revealed photo and restores the page", async ({
   await page.goto("/");
   await page.keyboard.press("Escape");
   await scrollPair(page, ".hero-composition .shedding-wrap", 1);
-  const panel = page.locator(".hero-composition .shed-sticky");
+  const panel = page.locator(".hero-composition .shedding");
   const revealed = getMedia(site.photoPairs.hero[1]);
   const launch = panel.getByRole("button", {
     name: `Open focus view of ${revealed.title}`,
