@@ -328,7 +328,7 @@ test("focus view fits the revealed photo and restores the page", async ({
   await page.goto("/");
   await page.keyboard.press("Escape");
   await scrollPair(page, ".hero-composition .shedding-wrap", 1);
-  const panel = page.locator(".hero-composition .shedding");
+  const panel = page.locator(".hero-composition .shed-sticky");
   const revealed = getMedia(site.photoPairs.hero[1]);
   const launch = panel.getByRole("button", {
     name: `Open focus view of ${revealed.title}`,
