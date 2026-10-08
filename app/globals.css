@@ -174,9 +174,6 @@ main {
 .navigation a:last-child {
   border-right: 1px solid var(--line);
 }
-.navigation a span {
-  margin-left: 10px;
-}
 .navigation a[aria-current="page"] {
   background: var(--ink);
   color: var(--paper);
@@ -263,9 +260,6 @@ main {
 .section-index a span:first-child {
   color: var(--muted);
   font-size: 12px;
-}
-.section-index a span:last-child {
-  margin-left: auto;
 }
 .section-index a:hover {
   background: #202020;
@@ -421,9 +415,6 @@ main {
 .manifesto-bottom .text-link {
   white-space: nowrap;
   align-self: end;
-}
-.small-symbol {
-  font-size: 48px;
 }
 .details {
   padding: 90px var(--gutter);
@@ -782,9 +773,13 @@ main {
   margin-top: 18px;
 }
 .viewer-bottom button {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
+  min-height: 44px;
+  padding: 10px 12px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
 }
 .viewer-bottom > div {
   text-align: center;
@@ -1077,9 +1072,6 @@ main {
     gap: 24px;
     margin-top: 32px;
     flex-wrap: wrap;
-  }
-  .small-symbol {
-    display: none;
   }
   .manifesto-bottom p {
     font-size: 16px;
@@ -1457,12 +1449,6 @@ main {
   overflow: hidden;
   transition: background 0.25s;
 }
-.section-index a span:last-child {
-  transition: transform 0.3s;
-}
-.section-index a:hover span:last-child {
-  transform: translateY(3px);
-}
 .shedding::after {
   content: "";
   position: absolute;
@@ -1497,10 +1483,6 @@ main {
   letter-spacing: -0.05em;
   text-transform: uppercase;
   transform: translateX(calc(-30px + var(--type-shift, 0px)));
-}
-.type-track span {
-  font-family: var(--gothic);
-  padding-inline: 0.12em;
 }
 .type-track-outline {
   color: transparent;

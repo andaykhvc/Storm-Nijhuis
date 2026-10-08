@@ -1,6 +1,6 @@
 # Storm Nijhuis / HELLION
 
-An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language is predominantly black with white typography: a bold, locally served blackletter nameplate, strong sans-serif text, clear section indexes and monochrome photographic presentation. The copy describes visible forms and how to browse the work. Fonts are served locally. There are no trackers, accounts, database or commerce dependencies.
+An editorial fashion portfolio built with Next.js App Router, React and TypeScript. The visual language is predominantly black with white typography: a bold, locally served blackletter nameplate, strong sans-serif text, clear section indexes and monochrome photographic presentation. The copy describes visible forms and how to browse the work. Fonts are served locally. Interface labels use plain text without emoji or decorative icon glyphs. There are no trackers, accounts, database or commerce dependencies.
 
 ## Run locally
 

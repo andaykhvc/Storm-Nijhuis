@@ -61,7 +61,7 @@ export default function About() {
             >
               <span>{entry.publication}</span>
               <h3>{entry.title}</h3>
-              <span>{entry.year} ↗</span>
+              <span>{entry.year}</span>
             </a>
           ))}
         </section>
@@ -75,7 +75,7 @@ export default function About() {
         </h2>
         {site.contactEmail ? (
           <a className="contact-email" href={`mailto:${site.contactEmail}`}>
-            {site.contactEmail} ↗
+            {site.contactEmail}
           </a>
         ) : (
           <p className="contact-note">
@@ -91,7 +91,7 @@ export default function About() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {link.label} ↗
+              {link.label}
             </a>
           ))}
         </div>

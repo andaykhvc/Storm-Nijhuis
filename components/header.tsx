@@ -33,7 +33,7 @@ export function Header() {
         aria-controls="site-navigation"
         onClick={() => setOpen(!open)}
       >
-        {open ? "Close −" : "Menu +"}
+        {open ? "Close" : "Menu"}
       </button>
       <nav
         id="site-navigation"
@@ -48,7 +48,6 @@ export function Header() {
             onClick={() => setOpen(false)}
           >
             {link.label}
-            <span aria-hidden="true">↗</span>
           </Link>
         ))}
       </nav>

@@ -100,7 +100,7 @@ export function Archive({ items }: { items: Media[] }) {
                 <span className="contact-frame" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")} / HELLION
                 </span>
-                <span className="view-label">View ↗</span>
+                <span className="view-label">View</span>
               </div>
               <span className="archive-caption">
                 <span>{item.title}</span>
@@ -124,7 +124,7 @@ export function Archive({ items }: { items: Media[] }) {
           </h2>
           <p>There are no images in this selection yet.</p>
           <button className="text-link" onClick={() => setFilter("all")}>
-            View all images ↗
+            View all images
           </button>
         </div>
       )}
@@ -154,7 +154,7 @@ export function Archive({ items }: { items: Media[] }) {
         aria-label="Archive image viewer"
       >
         <button className="viewer-close" onClick={() => setSelected(null)}>
-          Close ×
+          Close
         </button>
         {active ? (
           <>
@@ -166,14 +166,14 @@ export function Archive({ items }: { items: Media[] }) {
                 aria-label="Previous archive image"
                 onClick={() => move(-1)}
               >
-                ←
+                Previous
               </button>
               <div aria-live="polite">
                 <h2>{active.title}</h2>
                 <p>{active.caption}</p>
               </div>
               <button aria-label="Next archive image" onClick={() => move(1)}>
-                →
+                Next
               </button>
             </div>
           </>

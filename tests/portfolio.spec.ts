@@ -190,7 +190,7 @@ test("navigation works on touch and contact links to supplied Instagram", async 
 }, info) => {
   await page.goto("/");
   if (info.project.name === "mobile")
-    await page.getByRole("button", { name: "Menu +" }).click();
+    await page.getByRole("button", { name: "Menu" }).click();
   await page
     .getByRole("navigation")
     .getByRole("link", { name: "About" })
@@ -387,7 +387,7 @@ test("contact sheet keeps filters and image navigation working", async ({
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Next archive image" }).click();
   await expect(page.locator(".viewer-bottom h2")).toHaveText("Stripes / 02");
-  await page.getByRole("button", { name: "Close ×", exact: true }).click();
+  await page.getByRole("button", { name: "Close", exact: true }).click();
   await expect(first).toBeFocused();
   const audit = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
@@ -409,7 +409,7 @@ test("photographic workbench respects reduced motion", async ({ page }) => {
   await page.locator(".focus-launch").first().click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await expect(page.locator(".focus-shutter")).toBeHidden();
-  await page.getByRole("button", { name: "Close ×", exact: true }).click();
+  await page.getByRole("button", { name: "Close", exact: true }).click();
   await page.goto("/archive");
   await page
     .getByRole("button", { name: "Contact sheet", exact: true })

@@ -9,7 +9,7 @@ export default function NotFound() {
         found.
       </h1>
       <Link className="text-link" href="/">
-        Return to Hellion ↗
+        Return to Hellion
       </Link>
     </main>
   );

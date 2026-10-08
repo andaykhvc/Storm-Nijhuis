@@ -21,16 +21,16 @@ export default function Home() {
         </div>
         <nav className="section-index" aria-label="On this page">
           <a href="#selected-work">
-            <span>01</span> Selected work <span>↓</span>
+            <span>01</span> Selected work
           </a>
           <a href="#approach">
-            <span>02</span> Approach <span>↓</span>
+            <span>02</span> Approach
           </a>
           <Link href="/archive">
-            <span>03</span> Archive <span>↗</span>
+            <span>03</span> Archive
           </Link>
           <Link href="/about#contact">
-            <span>04</span> Contact <span>↗</span>
+            <span>04</span> Contact
           </Link>
         </nav>
         <div id="selected-work" className="hero-composition">
@@ -43,7 +43,7 @@ export default function Home() {
               structure and softness into the same frame.
             </p>
             <Link className="text-link" href="/hellion">
-              Explore the work <span>↗</span>
+              Explore the work
             </Link>
             <span className="hero-side-note">
               Two related photographs / Scroll down to reveal. Scroll up to
@@ -54,15 +54,13 @@ export default function Home() {
         </div>
         <div className="hero-foot">
           <span>Storm Nijhuis / HELLION</span>
-          <Link href="/archive">Browse every photograph ↗</Link>
+          <Link href="/archive">Browse every photograph</Link>
         </div>
       </section>
       <div className="type-interlude" aria-hidden="true">
-        <div className="type-track">
-          Body <span>×</span> Form <span>×</span> Surface
-        </div>
+        <div className="type-track">Body / Form / Surface</div>
         <div className="type-track type-track-outline">
-          Surface <span>×</span> Form <span>×</span> Body
+          Surface / Form / Body
         </div>
       </div>
       <section
@@ -86,9 +84,6 @@ export default function Home() {
           the shape.
         </h2>
         <div className="manifesto-bottom">
-          <span className="small-symbol" aria-hidden="true">
-            ✦
-          </span>
           <p>
             A raised collar changes a profile. A curved headpiece extends a
             silhouette. A veil changes what we see. HELLION brings these
@@ -96,7 +91,7 @@ export default function Home() {
             reshape the body.
           </p>
           <Link className="text-link" href="/hellion">
-            View the visual study ↗
+            View the visual study
           </Link>
         </div>
       </section>
@@ -126,7 +121,7 @@ export default function Home() {
             texture and proportion can be seen together.
           </p>
           <Link className="text-link" href="/archive">
-            View the archive ↗
+            View the archive
           </Link>
         </div>
       </section>
@@ -147,7 +142,7 @@ export default function Home() {
           Instagram.
         </p>
         <Link className="text-link" href="/about">
-          About Storm ↗
+          About Storm
         </Link>
       </section>
     </main>

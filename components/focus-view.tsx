@@ -38,7 +38,7 @@ function FocusDialog({ item, close }: { item: Media; close: () => void }) {
       <div className="focus-top">
         <span className="eyebrow">HELLION / Focus study</span>
         <button className="focus-control" onClick={dismiss}>
-          Close ×
+          Close
         </button>
       </div>
       <div className="focus-stage">
@@ -77,7 +77,7 @@ export function FocusView({ item }: { item: Media }) {
         aria-haspopup="dialog"
         onClick={() => setSelected(item)}
       >
-        <span aria-hidden="true">⤢</span> Focus
+        Focus
       </button>
       {selected ? <FocusDialog item={selected} close={close} /> : null}
     </>
