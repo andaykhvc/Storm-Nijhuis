@@ -18,23 +18,8 @@ export default function Home() {
             <span>HELLION / Selected work</span>
           </div>
         </div>
-        <nav className="section-index" aria-label="On this page">
-          <a href="#selected-work">
-            <span>01</span> Selected work
-          </a>
-          <a href="#approach">
-            <span>02</span> Approach
-          </a>
-          <Link href="/archive">
-            <span>03</span> Archive
-          </Link>
-          <Link href="/about#contact">
-            <span>04</span> Contact
-          </Link>
-        </nav>
         <div id="selected-work" className="hero-composition">
           <div className="hero-statement">
-            <span className="eyebrow">01 / Selected work</span>
             <h2>HELLION</h2>
             <p>
               A study of how clothing changes the outline of the body. Dark
@@ -67,7 +52,6 @@ export default function Home() {
         className="manifesto"
         aria-labelledby="approach-title"
       >
-        <span className="eyebrow">02 / Approach</span>
         <svg
           className="chapter-number"
           viewBox="0 0 600 600"
@@ -105,7 +89,6 @@ export default function Home() {
           </span>
         </div>
         <div className="detail-small">
-          <span className="eyebrow">03 / Form & detail</span>
           <Shedding
             items={getMediaPair(site.photoPairs.isolated)}
             sizes="(max-width: 700px) 100vw, 30vw"
@@ -125,7 +108,6 @@ export default function Home() {
         </div>
       </section>
       <section className="closing" aria-labelledby="closing-title">
-        <span className="eyebrow">04 / About & contact</span>
         <svg className="closing-seal" viewBox="0 0 600 600" aria-hidden="true">
           <text x="0" y="480">
             SN
