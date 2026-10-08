@@ -20,7 +20,7 @@ npm start
 
 ## Experiences
 
-- `/`: Storm Nijhuis nameplate, descriptive section headings and direct links to the work, archive and about page, without a repeated subsection index or numbered labels. A tactile, organic seam reveals the next photograph. Each of the three image panels contains exactly two related photographs. Scroll down to reveal the second image from top to bottom through the organic seam; scroll up to reverse the reveal. Each panel stays in view for its own short transition. Reduced motion switches between the same two images without peeling or distortion.
+- `/`: Storm Nijhuis nameplate, a direct section index and a tactile, organic seam revealing the next photograph. Each of the three image panels contains exactly two related photographs. Scroll down to reveal the second image from top to bottom through the organic seam; scroll up to reverse the reveal. Each panel stays in view for its own short transition. Reduced motion switches between the same two images without peeling or distortion.
 - Paired photographs include a Focus control for the currently revealed image. A vertical shutter opens an immersive native dialog with the complete photograph fitted to the screen. Keyboard Escape restores focus to the exact opener.
 - `/hellion`: collection story, paired portraits, a front/side silhouette pair and paired texture details.
 - `/archive`: all 16 unique supplied photographs, grouped by silhouettes, details and editorial compositions. Switch between the editorial grid and a numbered contact sheet with a short vertical exposure animation. Both layouts retain the current filter and native modal viewer, which supports arrows, Escape, focus restoration and touch controls.
@@ -30,7 +30,7 @@ Responsive compositions are tailored for mobile. Scroll reveals use Intersection
 
 ## Update content
 
-Edit `content/site.ts`. Images, navigation, home assignments, related photo pairs, biography, email, social links and press are centralized here. Add an image to `public/media`, then create a typed `Media` record containing its actual width, height, alt text, role and descriptive title. Use its ID in `site.home` or a two-photo tuple in `site.photoPairs` to curate without changing components. Photographs retain their complete source composition: paired frames follow the first photo's proportions and fit both images without zooming, editorial archive entries and about photography use their intrinsic proportions, and the contact sheet fits each complete image into a uniform frame. Reveal labels and the Focus control sit below the photo. `position` controls alignment within a fitted frame.
+Edit `content/site.ts`. Images, navigation, home assignments, related photo pairs, biography, email, social links and press are centralized here. Add an image to `public/media`, then create a typed `Media` record containing its actual width, height, alt text, role and descriptive title. Use its ID in `site.home` or a two-photo tuple in `site.photoPairs` to curate without changing components. `position` controls a crop's focal point.
 
 `content/media-provenance.json` maps the 16 photographs to the user-supplied source filenames. The `.jpeg` and `.jpg` versions of the veiled-eye close-up depict the same photo; it appears once in the archive. Titles describe imagery, not official look numbers or collection names. No collection dates, material construction claims, photographer credits, awards, education or press were inferred. Add verified credits and facts when available.
 
